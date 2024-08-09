@@ -35,8 +35,8 @@ cart.forEach((cartItem) => {
               Update
             </span>
 
-            <input type="number" value="${cartItem.quantity}" class="quantity-input invisible js-quantity-input-${matchingProduct.id}"></input>
-            <span class="link-primary invisible quantity-save js-save" data-product-id=${matchingProduct.id}>Save</span>
+            <input type="number" value="${cartItem.quantity}" class="invisible quantity-input js-input js-input-${matchingProduct.id}" data-product-id=${matchingProduct.id}></input>
+            <span class="link-primary invisible quantity-save js-save js-save-${matchingProduct.id}" data-product-id=${matchingProduct.id}>Save</span>
 
             <span class="delete-quantity-link link-primary js-del" data-product-id="${matchingProduct.id}">
               Delete
@@ -111,9 +111,12 @@ document.querySelectorAll('.js-update').forEach((link) => {
   });
 });
 document.querySelectorAll('.js-save').forEach((link) => {
+  const id = link.dataset.productId;
+  const input = document.querySelector(`.js-input-${id}`);
+  
   link.addEventListener('click', () => {
-    const id = link.dataset.productId;
-    const newQuantity = Number(document.querySelector(`.js-quantity-input-${id}`).value);
+    const newQuantity = Number(input.value);
+    
     console.log(newQuantity);
     if(newQuantity > 0){
       updateItem(id, newQuantity);
@@ -121,4 +124,9 @@ document.querySelectorAll('.js-save').forEach((link) => {
     }
     else removeItem(id);
   });
+
+  input.addEventListener('keydown', (event) => {
+    console.log(event);
+    if(event.key === 'Enter') link.click();
+  })
 });
