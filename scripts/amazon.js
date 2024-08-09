@@ -1,4 +1,4 @@
-import {addItem} from '../data/cart.js';//import {cart as myCart} ....
+import {addItem, cartQuantity} from '../data/cart.js';//import {cart as myCart} ....
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -56,6 +56,7 @@ products.forEach((product) => {
   `;
 });
 document.querySelector('.products-grid').innerHTML = productsHTML;
+document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
 let timeoutId;
 function showMessage(id){
@@ -68,7 +69,8 @@ function showMessage(id){
 document.querySelectorAll('.js-add-btn').forEach((btn) => {
   btn.addEventListener('click', ()=> {
     const id = btn.dataset.productId;
+    const choice = Number(document.querySelector(`.js-selector-${id}`).value);
     showMessage(id);
-    addItem(id);
+    addItem(id, choice);
   });
 });
