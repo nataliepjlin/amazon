@@ -45,3 +45,16 @@ export function removeItem(id){
   saveToStorage();
   document.querySelector('.js-ret').innerHTML = `${cartQuantity} items`;
 }
+export function updateItem(id, newQuantity){
+  if(newQuantity == 0) removeItem(id);
+  else{
+    cart.forEach((cartItem) => {
+      if(cartItem.id === id){
+        cartQuantity -= cartItem.quantity;
+        cartItem.quantity = newQuantity;
+        cartQuantity += newQuantity;
+      }
+    });
+    saveToStorage();
+  }
+}
