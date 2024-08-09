@@ -44,17 +44,20 @@ export function removeItem(id){
   });
   saveToStorage();
   document.querySelector('.js-ret').innerHTML = `${cartQuantity} items`;
+
+  const container = document.querySelector(`.js-cart-item-container-${id}`);
+  console.log(container);
+  container.remove();
 }
 export function updateItem(id, newQuantity){
-  if(newQuantity == 0) removeItem(id);
-  else{
-    cart.forEach((cartItem) => {
-      if(cartItem.id === id){
-        cartQuantity -= cartItem.quantity;
-        cartItem.quantity = newQuantity;
-        cartQuantity += newQuantity;
-      }
-    });
-    saveToStorage();
-  }
+  cart.forEach((cartItem) => {
+    if(cartItem.id === id){
+      cartQuantity -= cartItem.quantity;
+      cartItem.quantity = newQuantity;
+      cartQuantity += newQuantity;
+    }
+  });
+  saveToStorage();
+  document.querySelector('.js-ret').innerHTML = `${cartQuantity} items`;
+  document.querySelector(`.js-quantity-label-${id}`).innerHTML = newQuantity;
 }
