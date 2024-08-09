@@ -220,4 +220,7 @@
   .quantity-input, .quantity-save{
     display: initial;
   }
+  .quantity-label, .js-update{
+    display: none;
+  }
 }
