@@ -1,5 +1,6 @@
-import {cart} from '../data/cart.js';//import {cart as myCart} ....
+import {addItem} from '../data/cart.js';//import {cart as myCart} ....
 import {products} from '../data/products.js';
+
 let productsHTML = '';
 products.forEach((product) => {
   const {id, image, name, rating, price} = product;
@@ -55,30 +56,18 @@ products.forEach((product) => {
 });
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
-let cartQuantity = 0, timeoutId;
+let timeoutId;
+function showMessage(id){
+  const ms = document.querySelector(`.js-added-ms-${id}`);
+  if(timeoutId) clearTimeout(timeoutId);
+  ms.classList.add('visible');
+  timeoutId = setTimeout(() => {ms.classList.remove('visible')}, 1000);
+}
+
 document.querySelectorAll('.js-add-btn').forEach((btn) => {
   btn.addEventListener('click', ()=> {
     const id = btn.dataset.productId;
-    const choice = Number(document.querySelector(`.js-selector-${id}`).value);
-    const ms = document.querySelector(`.js-added-ms-${id}`);
-  
-    if(timeoutId) clearTimeout(timeoutId);
-    ms.classList.add('visible');
-    timeoutId = setTimeout(() => {ms.classList.remove('visible')}, 1000);
-
-    let matchingItem;
-    cart.forEach((item) => {
-      if(id === item.id) matchingItem = item;
-    });
-    if(matchingItem) matchingItem.quantity += choice;
-    else{
-      cart.push({
-        id,
-        quantity: choice,
-      });
-    }
-    cartQuantity += choice;
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-    console.log(cart);
+    showMessage(id);
+    addItem(id);
   });
 });
