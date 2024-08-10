@@ -58,12 +58,12 @@ products.forEach((product) => {
 document.querySelector('.products-grid').innerHTML = productsHTML;
 document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
-let timeoutId;
+const timouts = {};
 function showMessage(id){
   const ms = document.querySelector(`.js-added-ms-${id}`);
-  if(timeoutId) clearTimeout(timeoutId);
   ms.classList.add('visible');
-  timeoutId = setTimeout(() => {ms.classList.remove('visible')}, 1000);
+  if(timouts[id]) clearTimeout(timouts[id]);
+  timouts[id] = setTimeout(() => {ms.classList.remove('visible')}, 1000);
 }
 
 document.querySelectorAll('.js-add-btn').forEach((btn) => {

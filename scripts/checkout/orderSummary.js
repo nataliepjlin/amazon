@@ -1,5 +1,5 @@
 import {cart, removeItem, cartQuantity, updateItem, updateDelivery} from '../../data/cart.js';
-import {products} from '../../data/products.js';
+import {renderPaymentSummary} from './paymentSummary.js';
 import {formatCurrency} from '.././utils/money.js';
 import {deliveryOptions} from '../../data/deliveryOptions.js';
 import {findProduct, findOption} from '../utils/find.js';
@@ -8,8 +8,6 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 export function renderOrderSummary(){
   let orderHTML = '';
   cart.forEach((cartItem) => {
-    console.log(cartItem);
-    
     let matchingProduct = findProduct(cartItem.id);
     
     let deliveryChoice = findOption(cartItem.deliveryChoiceId);
@@ -44,7 +42,7 @@ export function renderOrderSummary(){
               <input type="number" value="${cartItem.quantity}" class="invisible quantity-input js-input js-input-${matchingProduct.id}" data-product-id=${matchingProduct.id}></input>
               <span class="link-primary invisible quantity-save js-save js-save-${matchingProduct.id}" data-product-id=${matchingProduct.id}>Save</span>
 
-              <span class="delete-quantity-link link-primary js-del" data-product-id="${matchingProduct.id}">
+              <span class="delete-quantity-link link-primary js-del js-del-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
                 Delete
               </span>
             </div>
@@ -74,7 +72,6 @@ export function renderOrderSummary(){
       const shippingStr = (option.price == 0) ? 'FREE' : `$${formatCurrency(option.price)}-`;
 
       const shouldCheck = (deliveryChoiceId === option.id);
-      console.log(`deliveryChoiceId = ${deliveryChoiceId}, option.id = ${option.id}, shouldCheck = ${shouldCheck}`);
 
       html += `
         <div class="delivery-option js-delivery-option" data-product-id="${itemId}" data-option-id="${option.id}">
@@ -102,7 +99,7 @@ export function renderOrderSummary(){
     link.addEventListener('click', () => {
       const id = link.dataset.productId;
       removeItem(id);
-      console.log(cart);
+      renderPaymentSummary();
     });
   });
 
@@ -124,8 +121,12 @@ export function renderOrderSummary(){
       if(newQuantity > 0){
         updateItem(id, newQuantity);
         document.querySelector(`.js-cart-item-container-${id}`).classList.remove('is-editing-quantity');
+        renderPaymentSummary();
       }
-      else removeItem(id);
+      else{
+        const del_link = document.querySelector(`.js-del-${id}`);
+        del_link.click();
+      }
     });
 
     input.addEventListener('keydown', (event) => {
@@ -138,6 +139,7 @@ export function renderOrderSummary(){
     option.addEventListener('click', () => {
       updateDelivery(productId, Number(optionId));
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 }

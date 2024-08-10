@@ -33,7 +33,6 @@ export function addItem(id, choice, deliveryChoiceId = 1){
   cartQuantity += choice;
   saveToStorage();
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-  console.log(cart);
 }
 export function removeItem(id){
   cart = cart.filter((cartItem) => {
