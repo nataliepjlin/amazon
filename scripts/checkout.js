@@ -60,19 +60,17 @@ cart.forEach((cartItem) => {
           <div class="delivery-options-title">
             Choose a delivery option:
           </div>
-          ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId)}
+          ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId, dateStr)}
         </div>
       </div>
     </div>
   `
 });
 
-function deliveryOptionsHTML(itemId, deliveryChoiceId = '1'){
+function deliveryOptionsHTML(itemId, deliveryChoiceId = '1', dateStr){
   const today = dayjs();
   let html = '';
   deliveryOptions.forEach((option) => {
-    const deliveryDate = today.add(option.deliveryDays, 'day');
-    const dateStr =  deliveryDate.format('dddd, MMMM D');
     const shippingStr = (option.price == 0) ? 'FREE' : `$${formatCurrency(option.price)}-`;
 
     const shouldCheck = (deliveryChoiceId === option.id);
