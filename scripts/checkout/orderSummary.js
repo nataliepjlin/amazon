@@ -2,6 +2,7 @@ import {cart, removeItem, cartQuantity, updateItem, updateDelivery} from '../../
 import {products} from '../../data/products.js';
 import {formatCurrency} from '.././utils/money.js';
 import {deliveryOptions} from '../../data/deliveryOptions.js';
+import {findProduct, findOption} from '../utils/find.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
 export function renderOrderSummary(){
@@ -9,15 +10,10 @@ export function renderOrderSummary(){
   cart.forEach((cartItem) => {
     console.log(cartItem);
     
-    let matchingProduct, deliveryChoice;
-
-    products.forEach((product) => {
-      if(product.id === cartItem.id) matchingProduct = product;
-    });
-
-    deliveryOptions.forEach((option) => {
-      if(option.id === cartItem.deliveryChoiceId) deliveryChoice = option;
-    });
+    let matchingProduct = findProduct(cartItem.id);
+    
+    let deliveryChoice = findOption(cartItem.deliveryChoiceId);
+    
     const today = dayjs();
     const dateStr = dateFormat(today, deliveryChoice.deliveryDays);
     orderHTML += `
@@ -71,7 +67,7 @@ export function renderOrderSummary(){
     return dateStr;
   }
 
-  function deliveryOptionsHTML(itemId, deliveryChoiceId = '1', today){
+  function deliveryOptionsHTML(itemId, deliveryChoiceId = 1, today){
     let html = '';
     deliveryOptions.forEach((option) => {
       const dateStr = dateFormat(today, option.deliveryDays);
@@ -137,11 +133,10 @@ export function renderOrderSummary(){
       if(event.key === 'Enter') link.click();
     })
   });
-  document.querySelectorAll('.js-delivery-option').forEach((btn) => {
-    const {productId, optionId} = btn.dataset;
-    btn.addEventListener('click', () => {
-      console.log(`${productId}, ${optionId}`);
-      updateDelivery(productId, optionId);
+  document.querySelectorAll('.js-delivery-option').forEach((option) => {
+    const {productId, optionId} = option.dataset;
+    option.addEventListener('click', () => {
+      updateDelivery(productId, Number(optionId));
       renderOrderSummary();
     });
   });
