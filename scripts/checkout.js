@@ -1,4 +1,4 @@
-import {cart, removeItem, cartQuantity, updateItem} from '../data/cart.js';
+import {cart, removeItem, cartQuantity, updateItem, updateDelivery} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 import {deliveryOptions} from '../data/deliveryOptions.js';
@@ -19,12 +19,10 @@ cart.forEach((cartItem) => {
     if(option.id === cartItem.deliveryChoiceId) deliveryChoice = option;
   });
   const today = dayjs();
-  const deliveryDate = today.add(deliveryChoice.deliveryDays, 'day');
-  const dateStr =  deliveryDate.format('dddd, MMMM D');
-  
+  const dateStr = dateFormat(today, deliveryChoice.deliveryDays);
   orderHTML += `
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
-      <div class="delivery-date">
+      <div class="delivery-date js-date-${matchingProduct.id}">
         Delivery date: ${dateStr}
       </div>
 
@@ -60,24 +58,30 @@ cart.forEach((cartItem) => {
           <div class="delivery-options-title">
             Choose a delivery option:
           </div>
-          ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId, dateStr)}
+          ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId, today)}
         </div>
       </div>
     </div>
   `
 });
 
-function deliveryOptionsHTML(itemId, deliveryChoiceId = '1', dateStr){
-  const today = dayjs();
+function dateFormat(today, day){
+  const deliveryDate = today.add(day, 'day');
+  const dateStr =  deliveryDate.format('dddd, MMMM D');
+  return dateStr;
+}
+
+function deliveryOptionsHTML(itemId, deliveryChoiceId = '1', today){
   let html = '';
   deliveryOptions.forEach((option) => {
+    const dateStr = dateFormat(today, option.deliveryDays);
     const shippingStr = (option.price == 0) ? 'FREE' : `$${formatCurrency(option.price)}-`;
 
     const shouldCheck = (deliveryChoiceId === option.id);
     console.log(`deliveryChoiceId = ${deliveryChoiceId}, option.id = ${option.id}, shouldCheck = ${shouldCheck}`);
 
     html += `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option" data-product-id="${itemId}" data-option-id="${option.id}">
         <input type="radio" ${(shouldCheck) ? 'checked' : ''}
           class="delivery-option-input"
           name="delivery-option-${itemId}">
@@ -133,3 +137,10 @@ document.querySelectorAll('.js-save').forEach((link) => {
     if(event.key === 'Enter') link.click();
   })
 });
+document.querySelectorAll('.js-delivery-option').forEach((btn) => {
+  const {productId, optionId} = btn.dataset;
+  btn.addEventListener('click', () => {
+    console.log(`${productId}, ${optionId}`);
+    updateDelivery(productId, optionId);
+  });
+})
