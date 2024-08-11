@@ -72,5 +72,6 @@ document.querySelectorAll('.js-add-btn').forEach((btn) => {
     const choice = Number(document.querySelector(`.js-selector-${id}`).value);
     showMessage(id);
     addItem(id, choice);
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
   });
 });
