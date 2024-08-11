@@ -1,4 +1,10 @@
-import {findItem} from '../scripts/utils/find.js';
+export function findItem(id){
+  let matchingItem;
+  cart.forEach((cartItem) => {
+    if(id === cartItem.id) matchingItem = cartItem;
+  });
+  return matchingItem;
+}
 
 export let cart = JSON.parse(localStorage.getItem('cart'));
 if(cart == null) cart = [{

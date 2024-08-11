@@ -1,9 +1,8 @@
 import {cart, removeItem, cartQuantity, updateItem, updateDelivery} from '../../data/cart.js';
 import {renderPaymentSummary} from './paymentSummary.js';
 import {formatCurrency} from '.././utils/money.js';
-import {deliveryOptions} from '../../data/deliveryOptions.js';
-import {findProduct, findOption} from '../utils/find.js';
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import {deliveryOptions, getDate, findOption} from '../../data/deliveryOptions.js';
+import {findProduct} from '../../data/products.js'
 
 export function renderOrderSummary(){
   let orderHTML = '';
@@ -12,8 +11,7 @@ export function renderOrderSummary(){
     
     let deliveryChoice = findOption(cartItem.deliveryChoiceId);
     
-    const today = dayjs();
-    const dateStr = dateFormat(today, deliveryChoice.deliveryDays);
+    const dateStr = getDate(deliveryChoice.deliveryDays);
     orderHTML += `
       <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date js-date-${matchingProduct.id}">
@@ -52,23 +50,17 @@ export function renderOrderSummary(){
             <div class="delivery-options-title">
               Choose a delivery option:
             </div>
-            ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId, today)}
+            ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId)}
           </div>
         </div>
       </div>
     `
   });
 
-  function dateFormat(today, day){
-    const deliveryDate = today.add(day, 'day');
-    const dateStr =  deliveryDate.format('dddd, MMMM D');
-    return dateStr;
-  }
-
-  function deliveryOptionsHTML(itemId, deliveryChoiceId = 1, today){
+  function deliveryOptionsHTML(itemId, deliveryChoiceId = 1){
     let html = '';
     deliveryOptions.forEach((option) => {
-      const dateStr = dateFormat(today, option.deliveryDays);
+      const dateStr = getDate(option.deliveryDays);
       const shippingStr = (option.price == 0) ? 'FREE' : `$${formatCurrency(option.price)}-`;
 
       const shouldCheck = (deliveryChoiceId === option.id);

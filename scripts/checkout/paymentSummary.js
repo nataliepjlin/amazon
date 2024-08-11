@@ -1,6 +1,7 @@
 import {cart, cartQuantity} from '../../data/cart.js';
-import {findProduct, findOption} from '../utils/find.js';
-import {formatCurrency} from '../utils/money.js'
+import {findProduct} from '../../data/products.js';
+import {findOption} from '../../data/deliveryOptions.js';
+import {formatCurrency} from '../utils/money.js';
 
 export function renderPaymentSummary(){
   let productSum = 0, shippingSum = 0;
