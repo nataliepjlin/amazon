@@ -1,8 +1,8 @@
-import {cart, removeItem, cartQuantity, updateItem, updateDelivery} from '../../data/cart.js';
+import {cart, removeItem, cartQuantity, updateItem, updateDelivery} from '../data/cart.js';
 import {renderPaymentSummary} from './paymentSummary.js';
-import {formatCurrency} from '.././utils/money.js';
-import {deliveryOptions, getDate, findOption} from '../../data/deliveryOptions.js';
-import {findProduct} from '../../data/products.js'
+import {formatCurrency} from '../utils/money.js';
+import {deliveryOptions, getDate, findOption} from '../data/deliveryOptions.js';
+import {findProduct} from '../data/products.js'
 
 export function renderOrderSummary(){
   let orderHTML = '';

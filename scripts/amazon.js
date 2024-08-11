@@ -1,5 +1,5 @@
-import {addItem, cartQuantity} from '../data/cart.js';//import {cart as myCart} ....
-import {products} from '../data/products.js';
+import {addItem, cartQuantity} from './data/cart.js';//import {cart as myCart} ....
+import {products} from './data/products.js';
 import {formatCurrency} from './utils/money.js';
 
 let productsHTML = '';
