@@ -13,7 +13,7 @@ describe('test suite: addItem', () => {
         deliveryChoiceId: 1,
       }]);
     });
-    console.log(`new: ${localStorage.getItem('cart')}`);
+    console.log(`existing: ${localStorage.getItem('cart')}`);
     loadFromStorage();
 
     addItem(id);
