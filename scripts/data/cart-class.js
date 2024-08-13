@@ -5,7 +5,7 @@ class Cart{
   constructor(cartKey, quantityKey){
     this.#cartKey = cartKey, this.#quantityKey = quantityKey;
     this.#loadFromStorage();
-  }
+  };
   
   #loadFromStorage(){
     this.cartItems = JSON.parse(localStorage.getItem(this.#cartKey));
