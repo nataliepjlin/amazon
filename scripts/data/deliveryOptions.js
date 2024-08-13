@@ -1,6 +1,6 @@
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 const today = dayjs();
-console.log(today);
+// console.log(today);
 
 function isWeekend(date){
   const day = date.format('ddd');
