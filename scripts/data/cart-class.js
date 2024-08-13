@@ -1,14 +1,14 @@
 class Cart{
-  cartItems = undefined;
-  cartQuantity = undefined; 
+  cartItems; #cartKey;//private: can only be accessed in class
+  cartQuantity; #quantityKey;
   
   constructor(cartKey, quantityKey){
-    this.cartKey = cartKey, this.quantityKey = quantityKey;
-    this.loadFromStorage();
+    this.#cartKey = cartKey, this.#quantityKey = quantityKey;
+    this.#loadFromStorage();
   }
   
-  loadFromStorage(){
-    this.cartItems = JSON.parse(localStorage.getItem(this.cartKey));
+  #loadFromStorage(){
+    this.cartItems = JSON.parse(localStorage.getItem(this.#cartKey));
     if(this.cartItems == null) this.cartItems = [{
       id: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
       quantity: 2,
@@ -19,12 +19,12 @@ class Cart{
       deliveryChoiceId: 2,
     }];
   
-    this.cartQuantity = JSON.parse(localStorage.getItem(this.quantityKey));
+    this.cartQuantity = JSON.parse(localStorage.getItem(this.#quantityKey));
     if(this.cartQuantity == null) this.cartQuantity = 3;
   }
   saveToStorage(){
-    localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
-    localStorage.setItem(this.quantityKey, JSON.stringify(this.cartQuantity));
+    localStorage.setItem(this.#cartKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#quantityKey, JSON.stringify(this.cartQuantity));
   }
   findItem(id){
     let matchingItem = undefined;
