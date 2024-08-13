@@ -715,3 +715,40 @@ export function findProduct(id){
   });
   return matchingProduct;
 };
+
+/*
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+*/
+
+/*
+console.log(this);
+const obj1 = {
+  a: 2,
+  b: this.a,
+};
+console.log(obj1);
+
+
+function logThis(){
+  console.log(this);
+}
+logThis();
+logThis.call('hello');//set `this` to 'hello'
+
+const obj2 = {
+  method1: () => {
+    console.log(this);
+  },
+  method2: function(){
+    console.log(this);
+  },
+  method3(){
+    console.log(this);
+  }
+}
+obj2.method1();
+obj2.method2();
+obj2.method3();
+*/
