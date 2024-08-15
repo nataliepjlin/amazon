@@ -56,7 +56,8 @@ export function loadProductsFetch(){
         return new Product(details);
       });
       console.log('load product fetch');
-      // ftn();
+    }).catch(() => {
+      console.log('Bad URL:(');
     });
   return promise;
 }
@@ -77,9 +78,13 @@ export function loadProducts(ftn){
     ftn();
   });
 
+  xhr.addEventListener('error', (error) => {
+    console.log('ERROR, please try again later');
+  });
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
+loadProducts();
 // console.log(products);
 
 export function findProduct(id){

@@ -6,15 +6,21 @@ import { loadCart } from './data/cart.js';
 // import './data/backend-practice.js'
 
 async function loadPage() {
+    try{
+      // throw 'meow';
+      await loadProductsFetch();
     
-    await loadProductsFetch();
-    
-    const val = await new Promise((resolve) => {
-      loadCart(() => {
-        resolve('wooooof');
+      const val = await new Promise((resolve, reject) => {
+        // throw 'meow';
+        loadCart(() => {
+          // reject('meow');
+          resolve('wooooof');
+        });
       });
-    });
-    console.log(val);
+      console.log(val);
+    } catch(error){
+      console.log('bad await');
+    }
 
     renderOrderSummary();
     renderPaymentSummary();
