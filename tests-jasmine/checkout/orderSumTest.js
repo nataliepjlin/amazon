@@ -22,11 +22,11 @@ describe('test suite: renderOrderSummary', () => {
     
     spyOn(localStorage, 'getItem').and.callFake(() => {
       return JSON.stringify([{
-        id: id1,
+        productId: id1,
         quantity: 2,
         deliveryChoiceId: 1,
       }, {
-        id: id2,
+        productId: id2,
         quantity: 1,
         deliveryChoiceId: 2,
       }]);
@@ -55,7 +55,7 @@ describe('test suite: renderOrderSummary', () => {
     expect(document.querySelector(`.js-cart-item-container-${id1}`)).toEqual(null);
     expect(document.querySelector(`.js-cart-item-container-${id2}`)).not.toEqual(null);
     expect(cart.length).toEqual(1);
-    expect(cart[0].id).toEqual(id2);
+    expect(cart[0].productId).toEqual(id2);
   });
 
   afterEach(() => {
