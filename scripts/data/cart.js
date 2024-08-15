@@ -3,13 +3,13 @@ export let cart, cartQuantity;
 export function loadFromStorage(){
   cart = JSON.parse(localStorage.getItem('cart'));
   if(cart == null) cart = [{
-    id: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2,
-    deliveryChoiceId: 1,
+    deliveryChoiceId: '1',
   }, {
-    id: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
     quantity: 1,
-    deliveryChoiceId: 2,
+    deliveryChoiceId: '2',
   }];
 
   cartQuantity = JSON.parse(localStorage.getItem('cartQuantity'));
@@ -25,17 +25,17 @@ export function saveToStorage(){
 export function findItem(id){
   let matchingItem;
   cart.forEach((cartItem) => {
-    if(id === cartItem.id) matchingItem = cartItem;
+    if(id === cartItem.productId) matchingItem = cartItem;
   });
   return matchingItem;
 };
-export function addItem(id, choice = 1, deliveryChoiceId = 1){
+export function addItem(id, choice = 1, deliveryChoiceId = '1'){
   let matchingItem = findItem(id);
 
   if(matchingItem) matchingItem.quantity += choice;
   else{
     cart.push({
-      id,
+      productId: id,
       quantity: choice,
       deliveryChoiceId
     });
@@ -46,7 +46,7 @@ export function addItem(id, choice = 1, deliveryChoiceId = 1){
 };
 export function removeItem(id){
   cart = cart.filter((cartItem) => {
-    if(cartItem.id !== id) return true;
+    if(cartItem.productId !== id) return true;
     else{
       cartQuantity -= cartItem.quantity;
       return false;
@@ -61,7 +61,7 @@ export function removeItem(id){
 };
 export function updateItem(id, newQuantity){
   cart.forEach((cartItem) => {
-    if(cartItem.id === id){
+    if(cartItem.productId === id){
       cartQuantity -= cartItem.quantity;
       cartItem.quantity = newQuantity;
       cartQuantity += newQuantity;

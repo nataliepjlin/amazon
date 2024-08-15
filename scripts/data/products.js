@@ -4,14 +4,14 @@ class Product{
   image;
   name;
   rating;
-  price;
+  priceCents;
   
   constructor(details){
     this.id = details.id;
     this.image = details.image;
     this.name = details.name;
     this.rating = details.rating;
-    this.price = details.priceCents;
+    this.priceCents = details.priceCents;
   };
 
   getStarUrl(){
@@ -19,7 +19,7 @@ class Product{
   }
 
   getPrice(){
-    return `$${formatCurrency(this.price)}`;
+    return `$${formatCurrency(this.priceCents)}`;
   }
   
   extraInfoHTML(){
@@ -84,7 +84,6 @@ export function loadProducts(ftn){
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
-loadProducts();
 // console.log(products);
 
 export function findProduct(id){

@@ -6,8 +6,9 @@ import {formatCurrency} from '../utils/money.js';
 export function renderPaymentSummary(){
   let productSum = 0, shippingSum = 0;
   cart.forEach( (cartItem) => {
-    const product = findProduct(cartItem.id);
-    productSum += product.price * cartItem.quantity;
+    const product = findProduct(cartItem.productId);
+    console.log(product);
+    productSum += product.priceCents * cartItem.quantity;
 
     const deliveryChoice = findOption(cartItem.deliveryChoiceId);
     shippingSum += deliveryChoice.price;;

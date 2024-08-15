@@ -7,7 +7,7 @@ import {findProduct} from '../data/products.js'
 export function renderOrderSummary(){
   let orderHTML = '';
   cart.forEach((cartItem) => {
-    let matchingProduct = findProduct(cartItem.id);
+    let matchingProduct = findProduct(cartItem.productId);
     
     let deliveryChoice = findOption(cartItem.deliveryChoiceId);
     
@@ -57,7 +57,7 @@ export function renderOrderSummary(){
     `
   });
 
-  function deliveryOptionsHTML(itemId, deliveryChoiceId = 1){
+  function deliveryOptionsHTML(itemId, deliveryChoiceId = '1'){
     let html = '';
     deliveryOptions.forEach((option) => {
       const dateStr = getDate(option.deliveryDays);
@@ -129,7 +129,7 @@ export function renderOrderSummary(){
   document.querySelectorAll('.js-delivery-option').forEach((option) => {
     const {productId, optionId} = option.dataset;
     option.addEventListener('click', () => {
-      updateDelivery(productId, Number(optionId));
+      updateDelivery(productId, optionId);
       renderOrderSummary();
       renderPaymentSummary();
     });
