@@ -53,7 +53,7 @@ export function loadProducts(ftn){
       if(details.type === 'clothing') return new Clothing(details);
       return new Product(details);
     });
-
+    console.log('load product');
     ftn();
   });
 
