@@ -5,45 +5,20 @@ import { loadCart } from './data/cart.js';
 //import './data/cart-class.js';
 // import './data/backend-practice.js'
 
-Promise.all([
-  loadProductsFetch(),
-  new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+async function loadPage() {
+    
+    await loadProductsFetch();
+    
+    const val = await new Promise((resolve) => {
+      loadCart(() => {
+        resolve('wooooof');
+      });
     });
+    console.log(val);
 
-  }),
-  
-]).then((vals) => {
-  console.log(vals);
-  renderOrderSummary();
-  renderPaymentSummary();
-});
+    renderOrderSummary();
+    renderPaymentSummary();
 
-
-// new Promise((resolve) => {
-//   loadProducts(() => {
-//     resolve('woof');//similar to 'done()' in jasmine
-//   });
-
-// }).then((val)=>{
-//   console.log(val);
-
-//   return new Promise((resolve) => {
-//     loadCart(() => {
-//       resolve();
-//     });
-//   });
-
-// }).then(() => {
-//   renderOrderSummary();
-//   renderPaymentSummary();
-
-// });
-
-// loadProducts(() => {
-//   loadCart(() => {
-//     renderOrderSummary();
-//     renderPaymentSummary();
-//   });
-// });
+    // return 'woof';//resolve
+}
+loadPage();
