@@ -2,6 +2,7 @@ import { findOrder, findProductInOrder} from "./data/orders.js";
 import { formatDate } from "./utils/date.js";
 import { findProduct, loadProductsFetch} from "./data/products.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { searchSetUp } from "./utils/search.js";
 
 function progressPercentage(orderTime, deliveryTime){
   const today = dayjs(), odt = dayjs(orderTime), dt = dayjs(deliveryTime);
@@ -65,5 +66,6 @@ function renderTracking(){
 async function loadPage() {
   await loadProductsFetch();
   renderTracking();
+  searchSetUp();
 }
 loadPage();

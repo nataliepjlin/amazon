@@ -15,7 +15,6 @@ async function loadPage() {
 
     renderOrderSummary();
     renderPaymentSummary();
-
     // return 'woof';//resolve
 }
 loadPage();

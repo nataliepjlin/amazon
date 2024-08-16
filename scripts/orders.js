@@ -3,6 +3,7 @@ import {orders} from './data/orders.js';
 import {formatCurrency} from './utils/money.js'
 import {formatDate} from './utils/date.js'
 import {findProduct, loadProductsFetch} from './data/products.js';
+import { searchSetUp } from './utils/search.js';
 
 document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
@@ -90,6 +91,7 @@ async function loadPage(){
     console.log(error);
   }
   renderPastOrder();
+  searchSetUp();
 }
 loadPage();
 

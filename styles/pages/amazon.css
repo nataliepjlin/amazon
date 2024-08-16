@@ -156,3 +156,15 @@
 }
 
 .visible{ opacity: 1;}
+
+.ms-container {
+  padding: 24px;
+  border: none;
+}
+.no-col{
+  font-weight: bold;
+  grid-template-columns: none;
+}
+.error{
+  color: darkred;
+}
