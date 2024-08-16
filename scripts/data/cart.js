@@ -20,6 +20,9 @@ loadFromStorage();
 export function saveToStorage(){
   localStorage.setItem('cart', JSON.stringify(cart));
   localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
+  
+  console.log(`saving data to storage: (cartQuantity = ${cartQuantity})`);
+  console.log(cart);
 };
 
 export function findItem(id){
@@ -96,4 +99,10 @@ export function loadCart(ftn){
 
   xhr.open('GET', 'https://supersimplebackend.dev/cart');
   xhr.send();
+}
+
+export function clearCart(){
+  cart.length = 0;
+  cartQuantity = 0;
+  saveToStorage();
 }
