@@ -4,7 +4,7 @@ export function searchSetUp(){
 
   btn.addEventListener('click', () => {
     console.log(input.value);
-    window.location.href = `amazon.html?search=${input.value}`;
+    window.location.href = `index.html?search=${input.value}`;
     input.value = '';
   });
   input.addEventListener('keydown', (event) => {
