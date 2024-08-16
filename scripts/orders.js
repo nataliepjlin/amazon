@@ -30,12 +30,12 @@ function renderPastOrder(){
         </div>
   
         <div class="order-details-grid">
-          ${orderDetailsHTML(order.products)}
+          ${orderDetailsHTML(order.products, order.id)}
         </div>
       </div>
     `
   });
-  function orderDetailsHTML(purchases){
+  function orderDetailsHTML(purchases, orderId){
     let html = '';
     purchases.forEach((item) => {
       let matchingProduct = findProduct(item.productId);
@@ -62,7 +62,7 @@ function renderPastOrder(){
         </div>
   
         <div class="product-actions">
-          <a href="tracking.html?orderId=123&productId=456">
+          <a href="tracking.html?orderId=${orderId}&productId=${item.productId}">
             <button class="track-package-button button-secondary">
               Track package
             </button>
@@ -80,7 +80,7 @@ function renderPastOrder(){
       addItem(productId, Number(productQuantity));
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
     });
-  })
+  });
 }
 
 async function loadPage(){
