@@ -44,22 +44,19 @@ class Clothing extends Product{
   }
 };
 
-export function loadProductsFetch(){
-  const promise = 
-    fetch(
-      'https://supersimplebackend.dev/products'
-    ).then((res) => {
-      return res.json();
-    }).then((productsData) => {
-      products = productsData.map((details) => {
-        if(details.type === 'clothing') return new Clothing(details);
-        return new Product(details);
-      });
-      console.log('load product fetch');
-    }).catch(() => {
-      console.log('Bad URL:(');
+export async function loadProductsFetch(){
+  try{
+    const response = await fetch('https://supersimplebackend.dev/products');
+    const productsData = await response.json();
+    products = productsData.map((details) => {
+      if(details.type === 'clothing') return new Clothing(details);
+      return new Product(details);
     });
-  return promise;
+    return productsData;
+
+  }catch(error){
+    console.log(error);
+  }
 }
 // loadProductsFetch().then(() => {
 //   console.log('next step');
