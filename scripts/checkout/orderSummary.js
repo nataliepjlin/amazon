@@ -9,7 +9,7 @@ export function renderOrderSummary(){
   cart.forEach((cartItem) => {
     let matchingProduct = findProduct(cartItem.productId);
     
-    let deliveryChoice = findOption(cartItem.deliveryChoiceId);
+    let deliveryChoice = findOption(cartItem.deliveryOptionId);
     
     const dateStr = getDate(deliveryChoice.deliveryDays);
     orderHTML += `
@@ -50,20 +50,20 @@ export function renderOrderSummary(){
             <div class="delivery-options-title">
               Choose a delivery option:
             </div>
-            ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryChoiceId)}
+            ${deliveryOptionsHTML(matchingProduct.id, cartItem.deliveryOptionId)}
           </div>
         </div>
       </div>
     `
   });
 
-  function deliveryOptionsHTML(itemId, deliveryChoiceId = '1'){
+  function deliveryOptionsHTML(itemId, deliveryOptionId = '1'){
     let html = '';
     deliveryOptions.forEach((option) => {
       const dateStr = getDate(option.deliveryDays);
       const shippingStr = (option.price == 0) ? 'FREE' : `$${formatCurrency(option.price)}-`;
 
-      const shouldCheck = (deliveryChoiceId === option.id);
+      const shouldCheck = (deliveryOptionId === option.id);
 
       html += `
         <div class="delivery-option js-delivery-option" data-product-id="${itemId}" data-option-id="${option.id}">
