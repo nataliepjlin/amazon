@@ -44,6 +44,13 @@ input, select, button {
   box-shadow: none;
 }
 
+.button-primary:disabled {
+  background: rgb(235, 218, 134);
+  border-color: rgb(235, 218, 134);
+  box-shadow: none;
+  color: rgb(154, 154, 154);
+}
+
 .button-secondary {
   color: rgb(33, 33, 33);
   background: white;

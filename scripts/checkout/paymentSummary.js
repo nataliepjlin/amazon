@@ -55,6 +55,10 @@ export function renderPaymentSummary(){
     </button>
   `
   document.querySelector('.js-payment-summary').innerHTML = paymentHTML;
+  if(!cartQuantity){
+    const btn = document.querySelector('.js-place-order');
+    btn.setAttribute('disabled', 'true');
+  }
   document.querySelector('.js-place-order').addEventListener('click', async () => {
     try{
       const response = await fetch('https://supersimplebackend.dev/orders', {
