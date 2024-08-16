@@ -1,5 +1,5 @@
 import { findOrder, findProductInOrder} from "./data/orders.js";
-import { formatDate } from "./utils/date.js";
+import { formatDate, orderDateStr } from "./utils/date.js";
 import { findProduct, loadProductsFetch} from "./data/products.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { searchSetUp } from "./utils/search.js";
@@ -26,7 +26,7 @@ function renderTracking(){
     </a>
 
     <div class="delivery-date">
-      Arriving on ${formatDate(item.estimatedDeliveryTime)}
+      ${orderDateStr(item.estimatedDeliveryTime)}
     </div>
 
     <div class="product-info">

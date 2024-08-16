@@ -1,7 +1,7 @@
 import {cartQuantity, addItem} from './data/cart.js';
 import {orders} from './data/orders.js';
 import {formatCurrency} from './utils/money.js'
-import {formatDate} from './utils/date.js'
+import {formatDate, orderDateStr} from './utils/date.js'
 import {findProduct, loadProductsFetch} from './data/products.js';
 import { searchSetUp } from './utils/search.js';
 
@@ -51,7 +51,7 @@ function renderPastOrder(){
             ${matchingProduct.name}
           </div>
           <div class="product-delivery-date">
-            Arriving on: ${formatDate(item.estimatedDeliveryTime)}
+            ${orderDateStr(item.estimatedDeliveryTime)}
           </div>
           <div class="product-quantity">
             Quantity: ${item.quantity}
