@@ -104,6 +104,7 @@ export function renderOrderSummary(){
       const id = link.dataset.productId;
       removeItem(id);
       renderPaymentSummary();
+      if(!cartQuantity) renderOrderSummary();
     });
   });
 
