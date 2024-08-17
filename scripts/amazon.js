@@ -13,20 +13,17 @@ function renderProductsGrid(){
   let query = new URL(window.location.href).searchParams.get('search');
   if(query){
     query = query.toLowerCase();
-    /*
     grid.classList.add('no-col');
     grid.innerHTML = `
       <div class="ms-container">
-        Searching product related to ${query}...
+        Searching product related to "${query}"...
       </div>
     `;
-    */
   }
 
   products.forEach((product) => {
-    const {id, image, name, rating, priceCents, keywords} = product;
-    if(!query || (name.toLowerCase()).includes(query)
-    || keywords.includes(query))
+    const {id, image, name, rating} = product;
+    if(!query || (name.toLowerCase()).includes(query))
       productsHTML += `<div class="product-container">
               <div class="product-image-container">
                 <img class="product-image"
