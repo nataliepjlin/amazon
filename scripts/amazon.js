@@ -13,12 +13,14 @@ function renderProductsGrid(){
   let query = new URL(window.location.href).searchParams.get('search');
   if(query){
     query = query.toLowerCase();
+    /*
     grid.classList.add('no-col');
     grid.innerHTML = `
       <div class="ms-container">
-        Searching product related to "${query}"...
+        Searching product related to ${query}...
       </div>
     `;
+    */
   }
 
   products.forEach((product) => {

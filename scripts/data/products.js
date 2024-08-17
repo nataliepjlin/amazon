@@ -43,6 +43,25 @@ class Clothing extends Product{
     `;
   }
 };
+class Appliance extends Product{
+  instructionsLink;
+  warrantyLink;
+  constructor(details){
+    super(details);
+    this.instructionsLink = 'https://supersimple.dev/images/appliance-instructions.png';
+    this.warrantyLink = 'https://supersimple.dev/images/appliance-warranty.png';
+  }
+  extraInfoHTML(){
+    return `
+      <a href="${this.instructionsLink}" target="_blank">
+        Instructions
+      </a>
+      <a href="${this.warrantyLink}" target="_blank">
+        Warranty
+      </a>
+    `;
+  }
+};
 
 export async function loadProductsFetch(){
   try{
@@ -50,6 +69,10 @@ export async function loadProductsFetch(){
     const productsData = await response.json();
     products = productsData.map((details) => {
       if(details.type === 'clothing') return new Clothing(details);
+      else if((details.keywords).includes('appliances')){
+        console.log(details.name);
+        return new Appliance(details);
+      }
       return new Product(details);
     });
     return productsData;
