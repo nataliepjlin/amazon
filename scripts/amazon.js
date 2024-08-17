@@ -24,8 +24,9 @@ function renderProductsGrid(){
   }
 
   products.forEach((product) => {
-    const {id, image, name, rating} = product;
-    if(!query || (name.toLowerCase()).includes(query))
+    const {id, image, name, rating, priceCents, keywords} = product;
+    if(!query || (name.toLowerCase()).includes(query)
+    || keywords.includes(query))
       productsHTML += `<div class="product-container">
               <div class="product-image-container">
                 <img class="product-image"
